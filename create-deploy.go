@@ -1,5 +1,7 @@
 package main
 
+// It will take several minutes to complete. 
+
 import (
     "context"
     "fmt"
