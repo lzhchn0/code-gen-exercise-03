@@ -1,0 +1,36 @@
+apiVersion: ctl.enisoc.com/v1
+kind: BlueGreenDeployment
+metadata:
+  name: httpd
+  labels:
+    app: httpd
+spec:
+  replicas: 5
+  minReadySeconds: 5
+  selector:
+    matchLabels:
+      app: httpd
+      component: frontfront
+  template:
+    metadata:
+      labels:
+        app: httpd
+        component: frontfront
+    spec:
+      containers:
+      - name: httpd
+        image: httpd:2.4.41-alpine
+        ports:
+        - containerPort: 80
+  service:
+    metadata:
+      name: httpd-frontfront
+      labels:
+        app: httpd
+        component: frontfront
+    spec:
+      selector:
+        app: httpd
+        component: frontfront
+      ports:
+      - port: 80
